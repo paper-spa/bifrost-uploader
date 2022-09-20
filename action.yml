@@ -34,7 +34,8 @@ runs:
       fi
   - name: Upload Pages middleware artifact
     if: steps.middleware.outputs.exists == 'true'
-    uses: actions/upload-pages-artifact@main
+    uses: actions/upload-artifact@v3
     with:
+      name: "github-pages"
       path: ${{ inputs.middleware }}
       retention-days: ${{ inputs.retention-days }}
