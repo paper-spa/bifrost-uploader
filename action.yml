@@ -17,10 +17,11 @@ runs:
   using: composite
   steps:
   - name: Upload Pages asset artifact
-    uses: actions/upload-pages-artifact@main
+    uses: paper-spa/upload-pages-artifact-v1@main
     with:
       path: ${{ inputs.path }}
       retention-days: ${{ inputs.retention-days }}
+      artifact_name: "artifact.tar"
   - name: Check middleware exists
     id: middleware
     shell: bash
@@ -32,8 +33,8 @@ runs:
       fi
   - name: Upload Pages middleware artifact
     if: steps.middleware.outputs.exists == 'true'
-    uses: actions/upload-artifact@v3
+    uses: paper-spa/upload-pages-artifact-v1@main
     with:
-      name: "github-pages"
+      artifact_name: "middleware.tar"
       path: ${{ inputs.middleware }}
       retention-days: ${{ inputs.retention-days }}
