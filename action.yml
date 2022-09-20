@@ -17,7 +17,7 @@ runs:
   using: composite
   steps:
   - name: Upload Pages asset artifact
-    uses: actions/upload-artifact@main
+    uses: actions/upload-pages-artifact@main
     with:
       path: ${{ inputs.path }}
       retention-days: ${{ inputs.retention-days }}
@@ -32,7 +32,7 @@ runs:
       fi
   - name: Upload Pages middleware artifact
     if: steps.middleware.outputs.exists == 'true'
-    uses: actions/upload-artifact@main
+    uses: actions/upload-pages-artifact@main
     with:
-      path: ${{ inputs.path }}
+      path: ${{ inputs.middleware }}
       retention-days: ${{ inputs.retention-days }}
