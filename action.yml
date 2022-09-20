@@ -26,10 +26,8 @@ runs:
     shell: bash
     run: |
       if [ -f ${{ inputs.middleware }} ]; then
-        echo "YES"
         echo "::set-output name=exists::true"
       else
-        echo "NO"
         echo "::set-output name=exists::false"
       fi
   - name: Upload Pages middleware artifact
