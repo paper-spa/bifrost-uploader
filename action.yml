@@ -1,0 +1,38 @@
+name: "Upload GitHub Pages artifact with middleware"
+description: "A composite action that prepares your static assets to be deployed to GitHub Pages"
+author: "GitHub"
+inputs:
+  path:
+    description: "Path of the directory containing the static assets."
+    required: true
+    default: "_site/"
+  middleware:
+    description: "Path of the directory containing the middleware files."
+    default: "middleware/"
+  retention-days:
+    description: "Duration after which artifact will expire in days."
+    required: false
+    default: "1"
+runs:
+  using: composite
+  steps:
+  - name: Upload Pages asset artifact
+    uses: actions/upload-artifact@main
+    with:
+      path: ${{ inputs.path }}
+      retention-days: ${{ inputs.retention-days }}
+  - name: Check middleware exists
+    id: middleware
+    shell: bash
+    run: |
+      if [ -f ${{ inputs.middleware }} ]; then
+        echo "::set-output name=exists::true"
+      else
+        echo "::set-output name=exists::false"
+      fi
+  - name: Upload Pages middleware artifact
+    if: steps.middleware.outputs.exists == 'true'
+    uses: actions/upload-artifact@main
+    with:
+      path: ${{ inputs.path }}
+      retention-days: ${{ inputs.retention-days }}
