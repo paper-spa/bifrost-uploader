@@ -1,3 +1,3 @@
-# bifrost-deployer
+# bifrost-uploader
 
-Use actions to deploy bridges that go between things
+Use actions to build bridges that go between things
